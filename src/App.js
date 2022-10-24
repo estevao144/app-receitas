@@ -1,21 +1,25 @@
 import React from 'react';
-import './App.css';
-
-import Header from './components/Header';
-import Provider from './context/Provider';
-
 import { Switch, Route } from 'react-router-dom';
+import './App.css';
+import Provider from './context/Provider';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
 import Login from './components/Login';
+import Meals from './pages/Drinks';
+import Drinks from './pages/Meals';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
     <Provider>
-      <Header />  
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/meals" component={ Meals } />
+        <Route exact path="/drinks" component={ Drinks } />
+        <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </Provider>
   );

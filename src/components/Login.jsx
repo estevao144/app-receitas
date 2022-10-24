@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import context from '../context/Context';
 
 function Login() {
+  const { setShowHeader } = useContext(context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidation, setValidation] = useState(true);
+
+  useEffect(() => {
+    setShowHeader({
+      showSearch: true,
+    });
+  }, []);
 
   function disableValidation() {
     const NUMBER_MIN = 6;
