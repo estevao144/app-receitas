@@ -30,11 +30,12 @@ function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ email }));
   }
 
   return (
     <div>
-      <form onSubmit={ handleSubmit }>
+      <form>
         <input
           type="text"
           data-testid="email-input"
@@ -53,6 +54,7 @@ function Login() {
           type="button"
           data-testid="login-submit-btn"
           disabled={ isValidation }
+          onClick={ handleSubmit }
         >
           Enter
         </button>
