@@ -5,6 +5,8 @@ import context from './Context';
 function Provider({ children, pages }) {
   const [showHeader, setShowHeader] = useState({
     showSearch: false,
+    showName: false,
+    showProfile: false,
   });
   const [pageName, setPageName] = useState(pages);
 
@@ -27,5 +29,9 @@ Provider.propTypes = {
   children: PropTypes.node,
   pages: PropTypes.string,
 }.isRequired;
-//
+
+Provider.defaultProps = {
+  pages: 'Foods',
+};
+
 export default Provider;

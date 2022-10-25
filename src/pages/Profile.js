@@ -1,21 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import context from '../context/Context';
 
-function Meals() {
+function Profile() {
   const { setPageName, setShowHeader } = useContext(context);
   useEffect(() => {
     setShowHeader({
-      showSearch: true,
+      showSearch: false,
       showName: true,
       showProfile: true,
     });
-    setPageName('Meals');
+    setPageName('Profile');
   }, []);
   return (
     <header>
-      <h1>Meals</h1>
+      <h1>Profile</h1>
     </header>
   );
 }
 
-export default Meals;
+export default Profile;
