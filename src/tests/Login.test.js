@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '../components/Login';
+import renderWithRouter from './helpers/renderWithRouter';
+import App from '../App';
 
 describe('Testes Login', () => {
   test('Verifica se os inputs são renderizados', () => {
-    render(<Login />);
+    renderWithRouter(<Login />);
 
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
@@ -16,15 +18,17 @@ describe('Testes Login', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('Verifica se os inputs são renderizados', () => {
-    render(<Login />);
+  test('Verifica se o botão esta desabilitado', () => {
+    const { history } = renderWithRouter(<App />);
 
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
     const button = screen.getByTestId('login-submit-btn');
 
-    userEvent.type(email, 'emailInvalido');
-    userEvent.type(password, '123');
-    expect(button).toBeDisabled();
+    userEvent.type(email, 'emailValido@outlook.com');
+    userEvent.type(password, '1234567');
+    userEvent.click(button);
+    const { pathname } = history.location;
+    expect(pathname).toBe('/recipes');
   });
 });

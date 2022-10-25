@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import Login from './components/Login';
+import Meals from './pages/Meals';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Header />  
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/meals" component={ Meals } />
       </Switch>
     </Provider>
   );
