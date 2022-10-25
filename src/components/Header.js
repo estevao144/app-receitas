@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import context from '../context/Context';
 
-function Header() {
+function Header({ showSearch = true, profileImage = true, pageName }) {
   const history = useHistory();
-  const { pageName, showHeader: showSearch } = useContext(context);
 
   const [showInput, setShowinput] = useState(false);
 
@@ -20,33 +19,45 @@ function Header() {
 
   return (
     <div>
-      <h1 data-testid="page-title">
-        {' '}
-        { pageName }
-        {' '}
-      </h1>
-      <button
-        type="button"
-        onClick={ handleProfile }
-      >
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="profileIcon" />
-      </button>
+      { ((pageName) && (
+        <h1 data-testid="page-title">
+          { pageName }
+        </h1>
+      ))}
+      { ((profileImage) && (
+        <button
+          type="button"
+          onClick={ handleProfile }
+        >
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="profileIcon" />
+        </button>
 
-      {showSearch
-      && (
-        <input
+      ))}
+
+      {((showSearch) && (
+        <button
+          type="button"
+          onClick={ handleSearch }
+        >
+          <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
+        </button>
+      ))}
+      {
+        (showInput)
+        && (<input
           data-testid="search-input"
-        />
-      )}
-      {showInput && { SearchBar }}
-      <button
-        type="button"
-        onClick={ handleSearch }
-      >
-        <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
-      </button>
+          type="text"
+          placeholder="Search"
+        />)
+      }
     </div>
   );
 }
+
+Header.propTypes = {
+  pageName: PropTypes.string,
+  showSearch: PropTypes.bool,
+  profileImage: PropTypes.bool,
+}.isRequired;
 
 export default Header;

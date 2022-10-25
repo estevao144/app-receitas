@@ -1,20 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import context from '../context/Context';
+import Header from '../components/Header';
 
 function DoneRecipes() {
-  const { setPageName, setShowHeader } = useContext(context);
-  useEffect(() => {
-    setShowHeader({
-      showSearch: false,
-      showName: true,
-      showProfile: true,
-    });
-    setPageName('Done Recipes');
-  }, []);
   return (
-    <header>
-      <h1>Done Recipes</h1>
-    </header>
+    <div>
+      <Header pageName="Done Recipes" showSearch={ false } />
+    </div>
   );
 }
 
