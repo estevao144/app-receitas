@@ -1,23 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import context from './Context';
 
-function Provider({ children, pages }) {
-  const [showHeader, setShowHeader] = useState({
-    showSearch: false,
-    showName: false,
-    showProfile: false,
-  });
-  const [pageName, setPageName] = useState(pages);
-
+function Provider({ children }) {
   const contextValue = useMemo(
     () => ({
-      showHeader,
-      setShowHeader,
-      pageName,
-      setPageName,
+      name: '',
     }),
-    [showHeader.setShowHeader, pageName, setPageName],
   );
 
   return (
@@ -27,11 +16,6 @@ function Provider({ children, pages }) {
 
 Provider.propTypes = {
   children: PropTypes.node,
-  pages: PropTypes.string,
 }.isRequired;
-
-Provider.defaultProps = {
-  pages: 'Foods',
-};
 
 export default Provider;
