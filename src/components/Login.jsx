@@ -1,17 +1,10 @@
-import React, { useState, useContext } from 'react';
-import context from '../context/Context';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-function Login() {
-  const { setShowHeader } = useContext(context);
+function Login({ history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidation, setValidation] = useState(true);
-
-  useEffect(() => {
-    setShowHeader({
-      showSearch: true,
-    });
-  }, []);
 
   function disableValidation() {
     const NUMBER_MIN = 6;
@@ -39,6 +32,7 @@ function Login() {
   function handleSubmit(event) {
     event.preventDefault();
     localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/meals');
   }
 
   return (
@@ -70,5 +64,11 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default Login;
