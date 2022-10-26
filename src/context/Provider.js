@@ -1,13 +1,35 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import context from './Context';
 
 function Provider({ children }) {
-  const contextValue = useMemo(
-    () => ({
-      name: '',
-    }),
-  );
+  const history = useHistory();
+
+  const handleFavRecipes = useCallback(() => {
+    history.push('/favorite-recipes');
+  }, [history]);
+
+  const handleDoneRecipes = useCallback(() => {
+    history.push('/done-recipes');
+  }, [history]);
+
+  const handleLogout = useCallback(() => {
+    localStorage.clear();
+
+    history.push('/');
+  }, [history]);
+
+  const contextValue = useMemo(() => ({
+    name: '',
+    handleDoneRecipes,
+    handleFavRecipes,
+    handleLogout,
+  }), [
+    handleDoneRecipes,
+    handleFavRecipes,
+    handleLogout,
+  ]);
 
   return (
     <context.Provider value={ contextValue }>{children}</context.Provider>

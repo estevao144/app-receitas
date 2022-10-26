@@ -1,5 +1,5 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import context from '../context/Context';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FavRecipes from '../images/whiteHeartIcon.svg';
@@ -7,23 +7,10 @@ import doneRecipe from '../images/shareIcon.svg';
 import logoutIcon from '../images/blackHeartIcon.svg';
 
 function Profile() {
+  const { handleDoneRecipes, handleFavRecipes, handleLogout } = useContext(context);
+  const user = localStorage.getItem('user');
+  if (!user) localStorage.setItem('user', JSON.stringify({ email: '' }));
   const email = JSON.parse(localStorage.getItem('user'));
-  const history = useHistory();
-
-  const handleFavRecipes = () => {
-    history.push('/favorite-recipes');
-  };
-
-  const handleDoneRecipes = () => {
-    history.push('/done-recipes');
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
-
-    history.push('/');
-  };
-
   return (
     <div>
       <Header pageName="Profile" showSearch={ false } />
