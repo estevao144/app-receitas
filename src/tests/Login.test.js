@@ -29,6 +29,6 @@ describe('Testes Login', () => {
     userEvent.type(password, '1234567');
     userEvent.click(button);
     const { pathname } = history.location;
-    expect(pathname).toBe('/recipes');
+    expect(pathname).toBe('/meals');
   });
 });
