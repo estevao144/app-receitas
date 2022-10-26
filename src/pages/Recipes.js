@@ -5,7 +5,7 @@ import Header from '../components/Header';
 function Recipes() {
   return (
     <div>
-      <Header showSearch profileImage pageName="Meals" />
+      <Header pageName="Meals" />
       <Meals />
     </div>
   );
