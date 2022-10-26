@@ -29,7 +29,7 @@ function Drinks() {
 
   return (
     <>
-      <Header />
+      <Header showSearch profileImage pageName="Drinks" />
       <div>
         {categorysArray.map((category, index) => (
           <button
