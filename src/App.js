@@ -4,7 +4,7 @@ import './App.css';
 import Provider from './context/Provider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
-import Meals from './pages/Meals';
+import Recipes from './pages/Recipes';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
@@ -15,7 +15,7 @@ function App() {
     <Provider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/meals" component={ Meals } />
+        <Route exact path="/meals" component={ Recipes } />
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />

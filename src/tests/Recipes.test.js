@@ -1,24 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../components/Login';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
-describe('Testes Login', () => {
-  test('Verifica se os inputs são renderizados', () => {
-    renderWithRouter(<Login />);
-
-    const email = screen.getByTestId('email-input');
-    const password = screen.getByTestId('password-input');
-    const button = screen.getByTestId('login-submit-btn');
-
-    expect(email).toBeInTheDocument();
-    expect(password).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
-  });
-
-  test('Verifica se o botão esta desabilitado', () => {
+describe('Testes Recipes', () => {
+  it('Testa se o os botões de filtro são renderizados', () => {
     const { history } = renderWithRouter(<App />);
 
     const email = screen.getByTestId('email-input');
@@ -30,5 +17,13 @@ describe('Testes Login', () => {
     userEvent.click(button);
     const { pathname } = history.location;
     expect(pathname).toBe('/meals');
+
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    const searchBtn = screen.getByTestId('search-top-btn');
+    const title = screen.getByTestId('page-title');
+
+    expect(profileBtn).toBeInTheDocument();
+    expect(searchBtn).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
   });
 });
