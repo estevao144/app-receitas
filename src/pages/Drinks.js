@@ -6,15 +6,16 @@ function Drinks() {
   const [drinksArray, setDrinksArray] = useState([]);
   const [categorysArray, setCategorysArray] = useState([]);
 
+  const requestAPI = async () => {
+    const numeroDeBebidas = 12;
+    const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(endPoint);
+    const { drinks } = await response.json();
+    const newDrinks = drinks.slice(0, numeroDeBebidas);
+    setDrinksArray(newDrinks);
+  };
+
   useEffect(() => {
-    const requestAPI = async () => {
-      const numeroDeBebidas = 12;
-      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(endPoint);
-      const { drinks } = await response.json();
-      const newDrinks = drinks.slice(0, numeroDeBebidas);
-      setDrinksArray(newDrinks);
-    };
     requestAPI();
 
     const requestApiCategory = async () => {
@@ -28,15 +29,40 @@ function Drinks() {
     requestApiCategory();
   }, []);
 
+  function handleClick({ target }) {
+    if (target.name !== '') {
+      const requestAPI5bebidas = async () => {
+        const numeroDeBebidas = 12;
+        const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`;
+        const response = await fetch(endPoint);
+        const { drinks } = await response.json();
+        const fiveDrinks = drinks.slice(0, numeroDeBebidas);
+        console.log(fiveDrinks);
+        setDrinksArray(fiveDrinks);
+      };
+      return requestAPI5bebidas();
+    }
+    requestAPI();
+  }
+
   return (
     <>
       <Header showSearch profileImage pageName="Drinks" />
       <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ handleClick }
+        >
+          All
+        </button>
         {categorysArray.map((category, index) => (
           <button
             key={ index }
             type="button"
             data-testid={ `${category.strCategory}-category-filter` }
+            name={ category.strCategory }
+            onClick={ handleClick }
           >
             {category.strCategory}
           </button>
