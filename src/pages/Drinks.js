@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 function Drinks() {
   const [drinksArray, setDrinksArray] = useState([]);
   const [categorysArray, setCategorysArray] = useState([]);
+  const [verifyClick, setVerifyClick] = useState(false);
 
   const requestAPI = async () => {
     const numeroDeBebidas = 12;
@@ -13,6 +14,7 @@ function Drinks() {
     const { drinks } = await response.json();
     const newDrinks = drinks.slice(0, numeroDeBebidas);
     setDrinksArray(newDrinks);
+    setVerifyClick(false);
   };
 
   useEffect(() => {
@@ -30,7 +32,7 @@ function Drinks() {
   }, []);
 
   function handleClick({ target }) {
-    if (target.name !== '') {
+    if (target.name !== '' && verifyClick === false) {
       const requestAPI5bebidas = async () => {
         const numeroDeBebidas = 12;
         const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`;
@@ -39,6 +41,7 @@ function Drinks() {
         const fiveDrinks = drinks.slice(0, numeroDeBebidas);
         console.log(fiveDrinks);
         setDrinksArray(fiveDrinks);
+        setVerifyClick(true);
       };
       return requestAPI5bebidas();
     }
@@ -60,6 +63,7 @@ function Drinks() {
           <button
             key={ index }
             type="button"
+            value={ verifyClick }
             data-testid={ `${category.strCategory}-category-filter` }
             name={ category.strCategory }
             onClick={ handleClick }
