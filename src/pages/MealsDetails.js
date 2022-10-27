@@ -32,7 +32,8 @@ function MealsDetails() {
 
   useEffect(() => {
     const splitStr = pathname.split('/');
-    fetchMeals(splitStr[2]);
+    const str = splitStr[2].replace(/:/g, '');
+    fetchMeals(str);
   });
 
   return (

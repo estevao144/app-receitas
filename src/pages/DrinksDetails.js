@@ -27,7 +27,8 @@ function DrinksDetails() {
 
   useEffect(() => {
     const splitStr = pathname.split('/');
-    fetchDrinks(splitStr[2]);
+    const str = splitStr[2].replace(/:/g, '');
+    fetchDrinks(str);
   });
 
   return (
@@ -37,11 +38,11 @@ function DrinksDetails() {
         alt={ data.strDrink }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ data.strDrink }</h1>
+      <h1 data-testid="recipe-title">{data.strDrink}</h1>
       <h3 data-testid="recipe-category">
         Category:
-        { data.strCategory }
-        { data.strAlcoholic }
+        {data.strCategory}
+        {data.strAlcoholic}
       </h3>
       <div>
         <h3>
@@ -59,7 +60,7 @@ function DrinksDetails() {
           ))}
         </ol>
       </div>
-      <p data-testid="instructions">{ data.strInstructions }</p>
+      <p data-testid="instructions">{data.strInstructions}</p>
     </div>
   );
 }
