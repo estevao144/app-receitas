@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import context from '../context/Context';
@@ -89,12 +89,15 @@ function Drinks() {
       <div>
         {drinksArray.map((drink, index) => (
           <ul key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-            <li data-testid={ `${index}-card-name` }>{drink.strDrink}</li>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
-            />
+            <Link to={ `/drinks/:${drink.idDrink}` }>
+
+              <li data-testid={ `${index}-card-name` }>{drink.strDrink}</li>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+              />
+            </Link>
           </ul>
         ))}
       </div>

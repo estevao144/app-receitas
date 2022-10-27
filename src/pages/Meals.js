@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
 function Meals() {
@@ -73,12 +74,14 @@ function Meals() {
       <div>
         {mealsArray.map((meal, index) => (
           <ul key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
-            <li data-testid={ `${index}-card-name` }>{meal.strMeal}</li>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-            />
+            <Link to={ `/meals/:${meal.idMeal}` }>
+              <li data-testid={ `${index}-card-name` }>{meal.strMeal}</li>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+              />
+            </Link>
           </ul>
         ))}
       </div>
