@@ -3,6 +3,9 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
+import Provider from '../context/Provider';
+import Recipes from '../pages/Recipes';
+// import requestAPIMeals from '../services/APIs';
 
 describe('Testes Recipes', () => {
   it('Testa se o os botões de filtro são renderizados', () => {
@@ -25,5 +28,30 @@ describe('Testes Recipes', () => {
     expect(profileBtn).toBeInTheDocument();
     expect(searchBtn).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+  });
+
+  test('', async () => {
+    renderWithRouter(<Provider><Recipes /></Provider>);
+
+    const searchTopBtn = screen.getByTestId('search-top-btn');
+    userEvent.click(searchTopBtn);
+
+    const searchInput = screen.getByTestId('search-input');
+    userEvent.type(searchInput, 'chicken');
+
+    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    userEvent.click(ingredientRadio);
+
+    const searchBtnMeals = screen.getByTestId('search-input');
+    userEvent.click(searchBtnMeals);
+
+    // jest.spyOn(global, 'fetch')
+    //   .mockResolvedValue({
+    //     json: jest.fn().mockResolvedValue([]),
+    //   });
+
+    // const listMeals = await requestAPIMeals(searchInput.value, null, null);
+
+    // expect(requestAPIMeals).toBeCalledTimes();
   });
 });
