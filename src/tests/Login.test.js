@@ -4,10 +4,11 @@ import userEvent from '@testing-library/user-event';
 import Login from '../components/Login';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
+import Provider from '../context/Provider';
 
 describe('Testes Login', () => {
   test('Verifica se os inputs são renderizados', () => {
-    renderWithRouter(<Login />);
+    const { history: { location } } = renderWithRouter(<Provider><Login /></Provider>);
 
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
@@ -16,10 +17,11 @@ describe('Testes Login', () => {
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
     expect(button).toBeInTheDocument();
+    expect(location.pathname).toBe('/');
   });
 
   test('Verifica se o botão esta desabilitado', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<Provider><App /></Provider>);
 
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
