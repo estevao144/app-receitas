@@ -21,43 +21,44 @@ function Header({ showSearch = true, profileImage = true, pageName }) {
   };
 
   return (
-    <>
-      <div>
-        { ((pageName) && (
-          <h1 data-testid="page-title">
-            { pageName }
-          </h1>
-        ))}
-        { ((profileImage) && (
-          <button
-            type="button"
-            onClick={ handleProfile }
-          >
-            <img data-testid="profile-top-btn" src={ profileIcon } alt="profileIcon" />
-          </button>
+    <div>
+      { ((pageName) && (
+        <h1 data-testid="page-title">
+          { pageName }
+        </h1>
+      ))}
+      { ((profileImage) && (
+        <button
+          type="button"
+          onClick={ handleProfile }
+        >
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="profileIcon" />
+        </button>
 
-        ))}
+      ))}
 
-        {((showSearch) && (
-          <button
-            type="button"
-            onClick={ handleSearch }
-          >
-            <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
-          </button>
-        ))}
-        {
-          (showInput)
+      {((showSearch) && (
+        <button
+          type="button"
+          onClick={ handleSearch }
+        >
+          <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
+        </button>
+      ))}
+      {
+        (showInput)
         && (<input
           data-testid="search-input"
           type="text"
           placeholder="Search"
           onChange={ ({ target: { value } }) => handleTerm(value) }
         />)
-        }
-      </div>
-      <SearchBar />
-    </>
+      }
+      {
+        (showInput)
+        && (<SearchBar />)
+      }
+    </div>
   );
 }
 

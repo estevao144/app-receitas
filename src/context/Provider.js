@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { node } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import myContext from './Context';
 import { requestAPIMeals, requestAPIDrinks } from '../services/APIs';
 
@@ -10,6 +11,21 @@ function Provider({ children }) {
   const [data, setData] = useState({});
   const [ingredients, setIngredients] = useState([]);
   const [measure, setMeasure] = useState([]);
+  const history = useHistory();
+
+  const handleFavRecipes = useCallback(() => {
+    history.push('/favorite-recipes');
+  }, [history]);
+
+  const handleDoneRecipes = useCallback(() => {
+    history.push('/done-recipes');
+  }, [history]);
+
+  const handleLogout = useCallback(() => {
+    localStorage.clear();
+
+    history.push('/');
+  }, [history]);
 
   const handleCategory = (category) => setSearchCategory(category);
   const handleTerm = (term) => setSearchTerm(term);
@@ -56,6 +72,9 @@ function Provider({ children }) {
     searchCategory,
     searchTerm,
     recipeList,
+    handleDoneRecipes,
+    handleFavRecipes,
+    handleLogout,
     handleCategory,
     handleTerm,
     searchBtnMeals,
@@ -66,7 +85,9 @@ function Provider({ children }) {
     setIngredients,
     measure,
     setMeasure,
-  }), [searchCategory, searchTerm, recipeList, searchBtnMeals, searchBtnDrinks]);
+  }), [searchCategory, searchTerm, recipeList, handleDoneRecipes,
+    handleFavRecipes,
+    handleLogout, searchBtnMeals, searchBtnDrinks]);
 
   return (
     <myContext.Provider value={ context }>{ children }</myContext.Provider>
