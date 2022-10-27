@@ -1,8 +1,8 @@
-import React, { /* useContext */ } from 'react';
-// import myContext from '../context/myContext';
+import React, { useContext } from 'react';
+import context from '../context/Context';
 
 function SearchBar() {
-  // const { handleCategory } = useContext(myContext);
+  const { handleCategory } = useContext(context);
   return (
     <>
       <label htmlFor="ingredient">
@@ -38,12 +38,6 @@ function SearchBar() {
           onChange={ ({ target: { value } }) => handleCategory(value) }
         />
       </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-      >
-        Search
-      </button>
     </>
   );
 }
