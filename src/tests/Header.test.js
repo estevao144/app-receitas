@@ -4,10 +4,11 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import Header from '../components/Header';
+import Provider from '../context/Provider';
 
 describe('Testando o componente Header', () => {
   test('Testa os se o componente renderiza corretamente', () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<Provider><App /></Provider>);
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
     const EMAIL_USER = 'testes@testando.com';
@@ -19,7 +20,7 @@ describe('Testando o componente Header', () => {
     userEvent.click(loginButton);
   });
   test('Testando botão de pesquisa', () => {
-    renderWithRouter(<Header />);
+    renderWithRouter(<Provider><Header /></Provider>);
     const searchBtn = screen.getByRole('img', {
       name: /searchicon/i,
     });
@@ -29,7 +30,7 @@ describe('Testando o componente Header', () => {
     expect(searchInput).not.toBeInTheDocument();
   });
   test('Testa a mudança de pagina', () => {
-    const { history } = renderWithRouter(<Header />);
+    const { history } = renderWithRouter(<Provider><Header /></Provider>);
     const profileBtn = screen.getByTestId('profile-top-btn');
     userEvent.click(profileBtn);
     expect(history.location.pathname).toBe('/profile');

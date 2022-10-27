@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import context from '../context/Context';
 
 function Drinks() {
   const [drinksArray, setDrinksArray] = useState([]);
   const [categorysArray, setCategorysArray] = useState([]);
+  const { searchBtnDrinks,
+    recipeList: { drinks: drinksList = [] } } = useContext(context);
 
   useEffect(() => {
     const requestAPI = async () => {
@@ -30,7 +34,15 @@ function Drinks() {
 
   return (
     <>
+      {drinksList.length === 1 && <Redirect to={ `/drinks/${drinksList[0].idDrink}` } />}
       <Header showSearch profileImage pageName="Drinks" />
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ searchBtnDrinks }
+      >
+        Search
+      </button>
       <div>
         {categorysArray.map((category, index) => (
           <button
