@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import context from './Context';
 
 function Provider({ children }) {
+  const [data, setData] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [measure, setMeasure] = useState([]);
   const contextValue = useMemo(
     () => ({
-      name: '',
+      data,
+      setData,
+      ingredients,
+      setIngredients,
+      measure,
+      setMeasure,
     }),
   );
 
