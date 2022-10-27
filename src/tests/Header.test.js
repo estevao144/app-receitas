@@ -35,4 +35,23 @@ describe('Testando o componente Header', () => {
     userEvent.click(profileBtn);
     expect(history.location.pathname).toBe('/profile');
   });
+
+  test('Verificando radio inputs "ingredient", "name", "firstLetter"', () => {
+    renderWithRouter(<Provider><Header /></Provider>);
+
+    const radioIngredient = screen.getByTestId('ingredient-search-radio');
+    const radioName = screen.getByTestId('name-search-radio');
+    const radioFirstLetter = screen.getByTestId('first-letter-search-radio');
+
+    expect(radioIngredient).toBeInTheDocument();
+    expect(radioName).toBeInTheDocument();
+    expect(radioFirstLetter).toBeInTheDocument();
+
+    userEvent.click(radioIngredient);
+    expect(radioIngredient.value).toBe('ingredient');
+    userEvent.click(radioName);
+    expect(radioName.value).toBe('name');
+    userEvent.click(radioFirstLetter);
+    expect(radioFirstLetter.value).toBe('firstLetter');
+  });
 });
