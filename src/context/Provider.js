@@ -1,9 +1,16 @@
-import PropTypes from 'prop-types';
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { node } from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import context from './Context';
+import myContext from './Context';
+import { requestAPIMeals, requestAPIDrinks } from '../services/APIs';
 
 function Provider({ children }) {
+  const [searchCategory, setSearchCategory] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [recipeList, setRecipeList] = useState([]);
+  const [data, setData] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [measure, setMeasure] = useState([]);
   const history = useHistory();
 
   const handleFavRecipes = useCallback(() => {
@@ -20,24 +27,75 @@ function Provider({ children }) {
     history.push('/');
   }, [history]);
 
-  const contextValue = useMemo(() => ({
-    name: '',
+  const handleCategory = (category) => setSearchCategory(category);
+  const handleTerm = (term) => setSearchTerm(term);
+
+  const searchBtnMeals = useCallback(() => {
+    const searchBtn = async () => {
+      let listMeals = [];
+      if (searchCategory === 'ingredient') {
+        listMeals = await requestAPIMeals(searchTerm, null, null);
+      }
+      if (searchCategory === 'name') {
+        listMeals = await requestAPIMeals(null, searchTerm, null);
+      }
+      if (searchCategory === 'firstLetter') {
+        if (searchTerm.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        }
+        listMeals = await requestAPIMeals(null, null, searchTerm);
+      }
+      setRecipeList(listMeals);
+    }; searchBtn();
+  }, [searchCategory, searchTerm]);
+
+  const searchBtnDrinks = useCallback(() => {
+    const searchBtn = async () => {
+      let listDrinks = [];
+      if (searchCategory === 'ingredient') {
+        listDrinks = await requestAPIDrinks(searchTerm, null, null);
+      }
+      if (searchCategory === 'name') {
+        listDrinks = await requestAPIDrinks(null, searchTerm, null);
+      }
+      if (searchCategory === 'firstLetter') {
+        if (searchTerm.length > 1) {
+          global.alert('Your search must have only 1 (one) character');
+        }
+        listDrinks = await requestAPIDrinks(null, null, searchTerm);
+      }
+      setRecipeList(listDrinks);
+    }; searchBtn();
+  }, [searchCategory, searchTerm]);
+
+  const context = useMemo(() => ({
+    searchCategory,
+    searchTerm,
+    recipeList,
     handleDoneRecipes,
     handleFavRecipes,
     handleLogout,
-  }), [
-    handleDoneRecipes,
+    handleCategory,
+    handleTerm,
+    searchBtnMeals,
+    searchBtnDrinks,
+    data,
+    setData,
+    ingredients,
+    setIngredients,
+    measure,
+    setMeasure,
+  }), [searchCategory, searchTerm, recipeList, handleDoneRecipes,
     handleFavRecipes,
-    handleLogout,
-  ]);
+    handleLogout, searchBtnMeals, searchBtnDrinks]);
 
   return (
-    <context.Provider value={ contextValue }>{children}</context.Provider>
+    <myContext.Provider value={ context }>{ children }</myContext.Provider>
   );
 }
 
 Provider.propTypes = {
-  children: PropTypes.node,
-}.isRequired;
+  children: node.isRequired,
+};
 
 export default Provider;

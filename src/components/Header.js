@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import context from '../context/Context';
 
 function Header({ showSearch = true, profileImage = true, pageName }) {
+  const { handleTerm } = useContext(context);
   const history = useHistory();
 
   const [showInput, setShowinput] = useState(false);
@@ -49,6 +51,7 @@ function Header({ showSearch = true, profileImage = true, pageName }) {
           data-testid="search-input"
           type="text"
           placeholder="Search"
+          onChange={ ({ target: { value } }) => handleTerm(value) }
         />)
       }
       {
