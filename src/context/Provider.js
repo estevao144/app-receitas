@@ -7,6 +7,9 @@ function Provider({ children }) {
   const [searchCategory, setSearchCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [recipeList, setRecipeList] = useState([]);
+  const [data, setData] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [measure, setMeasure] = useState([]);
 
   const handleCategory = (category) => setSearchCategory(category);
   const handleTerm = (term) => setSearchTerm(term);
@@ -57,6 +60,12 @@ function Provider({ children }) {
     handleTerm,
     searchBtnMeals,
     searchBtnDrinks,
+    data,
+    setData,
+    ingredients,
+    setIngredients,
+    measure,
+    setMeasure,
   }), [searchCategory, searchTerm, recipeList, searchBtnMeals, searchBtnDrinks]);
 
   return (
