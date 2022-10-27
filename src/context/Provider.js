@@ -72,6 +72,9 @@ function Provider({ children }) {
     searchCategory,
     searchTerm,
     recipeList,
+    data,
+    ingredients,
+    measure,
     handleDoneRecipes,
     handleFavRecipes,
     handleLogout,
@@ -79,15 +82,16 @@ function Provider({ children }) {
     handleTerm,
     searchBtnMeals,
     searchBtnDrinks,
-    data,
     setData,
-    ingredients,
     setIngredients,
-    measure,
     setMeasure,
-  }), [searchCategory, searchTerm, recipeList, handleDoneRecipes,
-    handleFavRecipes,
-    handleLogout, searchBtnMeals, searchBtnDrinks]);
+  }), [searchCategory,
+    searchTerm,
+    recipeList,
+    data,
+    ingredients,
+    measure,
+    handleDoneRecipes, handleFavRecipes, handleLogout, searchBtnMeals, searchBtnDrinks]);
 
   return (
     <myContext.Provider value={ context }>{ children }</myContext.Provider>

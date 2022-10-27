@@ -23,7 +23,6 @@ function Drinks() {
   const { searchBtnDrinks,
     recipeList: { drinks: drinksList = [] } } = useContext(context);
 
-
   useEffect(() => {
     requestAPI();
 
